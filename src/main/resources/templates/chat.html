@@ -10,6 +10,13 @@
   <div th:if="${name}">
     name : [[${name}]]
   </div>
+  <form action="/send" method="get">
+    <input type="text" name="test">
+    <input type="submit" value="送信">
+  </form>
+  <div th:if="${test}">
+    チャット内容 : [[${test}]]
+  </div>
 </body>
 
 </html>

@@ -16,4 +16,10 @@ public class BavarderController {
     return "chat.html";
   }
 
+  @GetMapping("/send")
+  public String send(@RequestParam String test, ModelMap model) {
+    model.addAttribute("test", test);
+    return "chat.html";
+  }
+
 }
