@@ -25,7 +25,16 @@ public class BavarderAuthConfiguration extends WebSecurityConfigurerAdapter {
     // $ sshrun htpasswd -nbBC 10 user1 pAssw0rd
     auth.inMemoryAuthentication().withUser("user1")
         .password("$2y$10$rJ9yqGht2W96MdIJICRQQOuUiYrt2eDokKnDuZZof2DPs83PN6QdC").roles("USER");
-  }
+    // $ sshrun htpasswd -nbBC 10 user2 User2
+    auth.inMemoryAuthentication().withUser("user2")
+        .password("$2y$10$OSgKQ7mgvAOXyo0SW1qgbOYHm8vcgujVL04PqNOKARz2CLFArNYUu").roles("USER");
+    // $ sshrun htpasswd -nbBC 10 user3 User3
+    auth.inMemoryAuthentication().withUser("user3")
+        .password("$2y$10$/Q07Xpngjsa.Y.xzG6aSaOsM7fX7EZFhmRLMTqtbtruLw6nMkH29G").roles("USER");
+    // $ sshrun htpasswd -nbBC 10 User4 User4
+    auth.inMemoryAuthentication().withUser("user4")
+        .password("$2y$10$uHv3aqlHHAjsSkg1JWtTEeKCsPa6OIl4pcPLmm6MDMqqH1ukQ53w2").roles("ADMIN");
+      }
 
   @Bean
   PasswordEncoder passwordEncoder() {
