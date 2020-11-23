@@ -8,15 +8,18 @@
 
 <body>
   <a href="/logout">ログアウト</a>
+
   <div th:if="${name}">
     name : [[${name}]]
   </div>
-  <form action="/send" method="get">
-    <input type="text" name="test">
+
+  <form action="/send" method="post">
+    <input type="text" name="message">
     <input type="submit" value="送信">
   </form>
-  <div th:if="${test}">
-    チャット内容 : [[${test}]]
+
+  <div th:each="chat,stat:${chats}">
+    [[${chat.user}]] : [[${chat.message}]]
   </div>
 </body>
 
