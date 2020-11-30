@@ -4,22 +4,67 @@
 <head>
   <meta charset="utf-8">
   <title>Bavarder</title>
+  <style type="text/css">
+    <!--
+    body {
+      color: white;
+      background-color: skyblue;
+    }
+
+    form {
+      position: absolute;
+      left: 58%;
+      top: 15%;
+      width: 40%;
+      height: 500px;
+      background-color: white;
+      text-align: center;
+    }
+
+    .chat {
+      position: absolute;
+      left: 3%;
+      top: 15%;
+      width: 50%;
+      height: 500px;
+      color: black;
+      background-color: white;
+    }
+
+    button {
+      color: black;
+      background-color: white;
+    }
+    -->
+  </style>
+  <script>
+    window.onload = function () {
+      var sse = new EventSource("/test1/pushChat");
+      sse.onmessage = function (event) {
+        console.log("sse.onmessage");
+        console.log(event.data);
+      }
+    }
+  </script>
 </head>
 
 <body>
-  <a href="/logout">ログアウト</a>
+  <button type="button" onclick="document.location='/logout';">ログアウト</button>
 
   <div th:if="${name}">
     name : [[${name}]]
   </div>
 
-  <form action="/send" method="post">
+  <form action="/test1/send" method="post">
     <input type="text" name="message">
     <input type="submit" value="送信">
   </form>
 
-  <div th:each="chat,stat:${chats}">
-    [[${chat.user}]] : [[${chat.message}]]
+  <p id="chat_list"></p>
+  <div class="chat">
+    <div th:each="chat,stat:${chats}">
+      [[${chat.user}]] : [[${chat.message}]]
+    </div>
   </div>
 </body>
 

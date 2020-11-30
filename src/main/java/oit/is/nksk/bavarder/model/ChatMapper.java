@@ -13,6 +13,9 @@ public interface ChatMapper {
   @Select("SELECT * FROM chat")
   ArrayList<Chat> selectAllChat();
 
+  /**
+   * @param chat
+   */
   @Insert("INSERT INTO chat (user,message) VALUES (#{user},#{message});")
   @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
   void insertChat(Chat chat);
