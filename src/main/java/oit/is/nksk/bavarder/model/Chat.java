@@ -5,6 +5,10 @@ public class Chat {
   String user;
   String message;
 
+  public Chat() {
+
+  }
+
   public int getId() {
     return id;
   }

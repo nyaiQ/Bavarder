@@ -34,7 +34,7 @@ public class BavarderAuthConfiguration extends WebSecurityConfigurerAdapter {
     // $ sshrun htpasswd -nbBC 10 User4 User4
     auth.inMemoryAuthentication().withUser("user4")
         .password("$2y$10$uHv3aqlHHAjsSkg1JWtTEeKCsPa6OIl4pcPLmm6MDMqqH1ukQ53w2").roles("ADMIN");
-      }
+  }
 
   @Bean
   PasswordEncoder passwordEncoder() {
@@ -54,7 +54,7 @@ public class BavarderAuthConfiguration extends WebSecurityConfigurerAdapter {
     // antMatchers().authenticated がantMatchersへのアクセスに認証を行うことを示す
     // antMatchers()の他にanyRequest()と書くとあらゆるアクセス先を表現できる
     // authenticated()の代わりにpermitAll()と書くと認証処理が不要であることを示す
-    http.authorizeRequests().antMatchers("/chat/**").authenticated();
+    http.authorizeRequests().antMatchers("/test1/**").authenticated();
     // http.authorizeRequests().anyRequest().authenticated();
     /**
      * 以下2行はh2-consoleを利用するための設定なので，開発が完了したらコメントアウトすることが望ましい
