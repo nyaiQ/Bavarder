@@ -5,7 +5,6 @@
   <meta charset="utf-8">
   <title>Bavarder</title>
   <style type="text/css">
-    <!--
     body {
       color: white;
       background-color: skyblue;
@@ -35,7 +34,6 @@
       color: black;
       background-color: white;
     }
-    -->
   </style>
   <script>
     window.onload = function () {
@@ -43,6 +41,13 @@
       sse.onmessage = function (event) {
         console.log("sse.onmessage");
         console.log(event.data);
+        var chat_list = JSON.parse(event.data);
+        var contents = "";
+        for (var i = 0; i < chat_list.length; i++) {
+          contents = chat_list[i].user + " : " + chat_list[i].message + "<br>" + contents;
+        }
+        console.log(contents);
+        document.getElementById("chat_list").innerHTML = contents;
       }
     }
   </script>
@@ -60,12 +65,7 @@
     <input type="submit" value="送信">
   </form>
 
-  <p id="chat_list"></p>
-  <div class="chat">
-    <div th:each="chat,stat:${chats}">
-      [[${chat.user}]] : [[${chat.message}]]
-    </div>
-  </div>
+  <div class="chat" id="chat_list"></div>
 </body>
 
 </html>
