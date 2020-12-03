@@ -16,7 +16,7 @@ public interface ChatMapper {
   /**
    * @param chat
    */
-  @Insert("INSERT INTO chat (user,message) VALUES (#{user},#{message});")
+  @Insert("INSERT INTO chat (user,message,time) VALUES (#{user},#{message},#{time});")
   @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
   void insertChat(Chat chat);
 
