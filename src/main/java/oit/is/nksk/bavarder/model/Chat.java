@@ -4,6 +4,7 @@ public class Chat {
   int id;
   String user;
   String message;
+  String time;
 
   public Chat() {
 
@@ -31,6 +32,14 @@ public class Chat {
 
   public void setMessage(String message) {
     this.message = message;
+  }
+
+  public String getTime(){
+    return time;
+  }
+
+  public void setTime(String time) {
+    this.time = time;
   }
 
 }
