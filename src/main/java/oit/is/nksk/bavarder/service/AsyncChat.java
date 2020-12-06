@@ -28,10 +28,11 @@ public class AsyncChat {
   }
 
   @Transactional
-  public Chat syncSubmitChat(String name, String message) {
+  public Chat syncSubmitChat(String name, String message, String time) {
     Chat chat = new Chat();
     chat.setUser(name);
     chat.setMessage(message);
+    chat.setTime(time);
     this.cMapper.insertChat(chat);
     this.dbUpdated = true;
     return chat;
