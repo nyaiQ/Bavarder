@@ -59,19 +59,25 @@
   <div th:if="${name}">
     name : [[${name}]]
   </div>
+
 <script>
   var time = new Date();
   var month = time.getMonth() + 1;
-  var day = time.getDay() - 1;
+  var day = time.getDate();
   var hour = time.getHours();
   var minute = time.getMinutes();
   var second = time.getSeconds();
-  document.write(month + "/" + day + " " + hour + ":" + minute + ":" + second);
+  var time = month + "/" + day + " " + hour + ":" + minute + ":" + second;
 </script>
-  <form action="/test1/send" method="post">
+
+<form action="/test1/send" method="post">
     <input type="text" name="message">
     <input type="submit" value="送信">
-  </form>
+    <input id="Time" type="hidden" size="30" name="time" value="">
+    <script>
+    document.getElementById('Time').value=time;
+    </script>
+    </form>
   <div class="chat" id="chat_list"></div>
 </body>
 

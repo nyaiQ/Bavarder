@@ -28,9 +28,9 @@ public class BavarderController {
   }
 
   @PostMapping("/send")
-  public String send(@RequestParam String message, Principal prin, ModelMap model) {
+  public String send(@RequestParam String message, String time, Principal prin, ModelMap model) {
     String name = prin.getName();
-    asyncChat.syncSubmitChat(name, message);
+    asyncChat.syncSubmitChat(name, message, time);
     model.addAttribute("name", name);
     return "chat.html";
   }
