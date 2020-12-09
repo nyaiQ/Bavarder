@@ -5,10 +5,7 @@ public class Chat {
   String user;
   String message;
   String time;
-
-  public Chat() {
-
-  }
+  int iine;
 
   public int getId() {
     return id;
@@ -42,4 +39,11 @@ public class Chat {
     this.time = time;
   }
 
+  public int getiine() {
+    return iine;
+  }
+
+  public void setiine(int iine) {
+    this.iine = iine;
+  }
 }

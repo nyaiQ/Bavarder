@@ -27,10 +27,12 @@ public class BavarderController {
     return "chat.html";
   }
 
+
   @PostMapping("/send")
-  public String send(@RequestParam String message, String time, Principal prin, ModelMap model) {
+  public String send(@RequestParam String message, String time,Principal prin, ModelMap model) {
     String name = prin.getName();
-    asyncChat.syncSubmitChat(name, message, time);
+    int initiine = 0;
+    asyncChat.syncSubmitChat(name, message, time,initiine);
     model.addAttribute("name", name);
     return "chat.html";
   }
@@ -45,4 +47,11 @@ public class BavarderController {
     return sseEmitter;
   }
 
+  @GetMapping("/iine")
+  public String iine(@RequestParam Integer id, String message, String time, Principal prin, ModelMap model) {
+    String name = prin.getName();
+    model.addAttribute("name", name);
+    asyncChat.iineCount(id,message,time,name);
+    return "chat.html";
+}
 }

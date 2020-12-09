@@ -28,16 +28,30 @@ public class AsyncChat {
   }
 
   @Transactional
-  public Chat syncSubmitChat(String name, String message, String time) {
+  public Chat syncSubmitChat(String name, String message, String time,int iine) {
     Chat chat = new Chat();
     chat.setUser(name);
     chat.setMessage(message);
     chat.setTime(time);
+    chat.setiine(iine);
     this.cMapper.insertChat(chat);
     this.dbUpdated = true;
     return chat;
   }
 
+  @Transactional
+  public Chat iineCount(int id,String message,String time,String name) {
+    int count;
+    Chat chat = new Chat();
+    chat.setUser(name);
+    chat.setMessage(message);
+    chat.setTime(time);
+    count = chat.getiine() + 1;
+    chat.setiine(count);
+    cMapper.updateiinecount(count ,id);
+    this.dbUpdated = true;
+    return chat;
+  }
   /**
    * @param emitter
    */
@@ -62,4 +76,5 @@ public class AsyncChat {
     }
     System.out.println("asyncShowChatList complete");
   }
+
 }
