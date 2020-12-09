@@ -14,6 +14,9 @@ public interface ChatMapper {
   @Select("SELECT * FROM chat")
   ArrayList<Chat> selectAllChat();
 
+  @Select("SELECT IINE FROM chat WHERE ID=#{id}")
+  Chat UniqueIine(int id);
+
   /**
    * @param chat
    */
