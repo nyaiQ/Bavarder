@@ -50,8 +50,8 @@ public class BavarderController {
   @GetMapping("/iine")
   public String iine(@RequestParam Integer id, String message, String time, Principal prin, ModelMap model) {
     String name = prin.getName();
+    asyncChat.iineCount(id, name, message, time);
     model.addAttribute("name", name);
-    asyncChat.iineCount(id,message,time,name);
     return "chat.html";
 }
 }

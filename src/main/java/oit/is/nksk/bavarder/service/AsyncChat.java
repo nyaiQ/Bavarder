@@ -40,15 +40,15 @@ public class AsyncChat {
   }
 
   @Transactional
-  public Chat iineCount(int id,String message,String time,String name) {
-    int count;
+  public Chat iineCount(int id,String name,String message,String time) {
+    Chat count;
     Chat chat = new Chat();
     chat.setUser(name);
     chat.setMessage(message);
     chat.setTime(time);
-    count = chat.getiine() + 1;
-    chat.setiine(count);
-    cMapper.updateiinecount(count ,id);
+    count = cMapper.UniqueIine(id);
+    chat.setiine(count.getiine());
+    cMapper.updateiinecount(count.getiine() ,id);
     this.dbUpdated = true;
     return chat;
   }
