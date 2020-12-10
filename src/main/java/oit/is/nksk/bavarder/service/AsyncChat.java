@@ -44,7 +44,13 @@ public class AsyncChat {
     cMapper.updateiinecount(id);
     this.dbUpdated = true;
   }
-  
+
+  @Transactional
+  public void editMessage(int id, String message) {
+    cMapper.updatemessage(id,message);
+    this.dbUpdated = true;
+  }
+
   /**
    * @param emitter
    */
