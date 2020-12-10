@@ -44,7 +44,7 @@
         var chat_list = JSON.parse(event.data);
         var contents = "";
         for (var i = 0; i < chat_list.length; i++) {
-          contents = chat_list[i].user + " : " + chat_list[i].message + " " + chat_list[i].time + "<a href=\"/test1/iine?id="+chat_list[i].id+"\">★</a>" + "<br>" + contents;
+          contents = chat_list[i].user + " : " + chat_list[i].message + " " + chat_list[i].time + "<a href=\"/test1/iine?id="+chat_list[i].id+"\">★</a>" + chat_list[i].iine + "<br>" + contents;
         }
         console.log(contents);
         document.getElementById("chat_list").innerHTML = contents;
@@ -66,7 +66,9 @@
   var day = time.getDate();
   var hour = time.getHours();
   var minute = time.getMinutes();
+  var minute = ('00' + minute).slice(-2);
   var second = time.getSeconds();
+  var second = ('00' + second).slice(-2);
   var time = month + "/" + day + " " + hour + ":" + minute + ":" + second;
 </script>
 
