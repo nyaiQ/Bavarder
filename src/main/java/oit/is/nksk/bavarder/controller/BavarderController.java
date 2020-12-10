@@ -12,6 +12,8 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import oit.is.nksk.bavarder.service.AsyncChat;
+import oit.is.nksk.bavarder.model.ChatMapper;
+import oit.is.nksk.bavarder.model.Chat;
 
 @Controller
 @RequestMapping("/test1")
@@ -19,6 +21,9 @@ public class BavarderController {
 
   @Autowired
   AsyncChat asyncChat;
+
+  @Autowired
+  ChatMapper cMapper;
 
   @GetMapping("/chat")
   public String chat(Principal prin, ModelMap model) {
@@ -53,5 +58,31 @@ public class BavarderController {
     asyncChat.iineCount(id);
     model.addAttribute("name", name);
     return "chat.html";
-}
+  }
+
+  @GetMapping("/eform")
+  public String eform(@RequestParam Integer id, Principal prin, ModelMap model) {
+    String name = prin.getName();
+    Chat chat=cMapper.selectByID(id);
+    model.addAttribute("name", name);
+    model.addAttribute("chat", chat);
+    return "chat.html";
+  }
+
+  @PostMapping("/edit")
+  public String edit(@RequestParam Integer id, @RequestParam String message, Principal prin, ModelMap model) {
+    String name = prin.getName();
+    asyncChat.editMessage(id,message);
+    model.addAttribute("name", name);
+    return "chat.html";
+  }
+
+  @GetMapping("/delete")
+  public String delete(@RequestParam Integer id, Principal prin, ModelMap model) {
+    String name = prin.getName();
+    cMapper.deleteByID(id);
+    model.addAttribute("name", name);
+    return "chat.html";
+  }
+
 }

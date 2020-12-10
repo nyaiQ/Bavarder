@@ -44,7 +44,7 @@
         var chat_list = JSON.parse(event.data);
         var contents = "";
         for (var i = 0; i < chat_list.length; i++) {
-          contents = chat_list[i].user + " : " + chat_list[i].message + " " + chat_list[i].time + "<a href=\"/test1/iine?id="+chat_list[i].id+"\">★</a>" + chat_list[i].iine + "<br>" + contents;
+          contents = chat_list[i].user + " : " + chat_list[i].message + " " + chat_list[i].time + "<a href=\"/test1/iine?id="+chat_list[i].id+"\">★</a>" + chat_list[i].iine + "<a href=\"/test1/eform?id="+chat_list[i].id+"\">編集</a> "+ "<a href=\"/test1/delete?id=" + chat_list[i].id + "\">削除</a>"+"<br>" + contents;
         }
         console.log(contents);
         document.getElementById("chat_list").innerHTML = contents;
@@ -79,8 +79,14 @@
     <script>
     document.getElementById('Time').value=time;
     </script>
-    </form>
-  <div class="chat" id="chat_list"></div>
+</form>
+<div class="chat" id="chat_list"></div>
+<div th:if="${chat}">
+  <form th:action="@{/test1/edit(id=${chat.id})}" method="post">
+    <input type="text" name="message" th:value="${chat.message}" /><br>
+    <input type="submit" value="編集"><input type="reset" value="リセット">
+  </form>
+</div>
 </body>
 
 </html>
