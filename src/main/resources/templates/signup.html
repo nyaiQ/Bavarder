@@ -1,1 +1,19 @@
-hogehoge
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>SignUp</title>
+</head>
+
+<body>
+  <form th:action="@{/test2/signup}" method="post">
+    ユーザ名
+    <input type="text" name="username" /><br>
+    パスワード
+    <input type="text" name="password" /><br>
+    <input type="submit" value="登録">
+  </form>
+</body>
+
+</html>
