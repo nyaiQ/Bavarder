@@ -1,6 +1,6 @@
 package oit.is.nksk.bavarder.model;
 
-public class User {
+public class Account {
   int id;
   String username;
   String password;
@@ -12,6 +12,7 @@ public class User {
   public void setId(int id) {
     this.id = id;
   }
+
   public String getUsername() {
     return username;
   }
@@ -19,6 +20,7 @@ public class User {
   public void setUsername(String username) {
     this.username = username;
   }
+
   public String getPassword() {
     return password;
   }
