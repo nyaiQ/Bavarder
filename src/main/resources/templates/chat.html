@@ -10,13 +10,22 @@
       background-color: skyblue;
     }
 
-    form {
+    #sono1 {
       position: absolute;
       left: 58%;
       top: 15%;
       width: 40%;
       height: 500px;
       background-color: white;
+      text-align: center;
+    }
+
+    #sono2 {
+      position: absolute;
+      left: 58%;
+      top: 50%;
+      width: 40%;
+      height: 500px;
       text-align: center;
     }
 
@@ -44,7 +53,7 @@
         var chat_list = JSON.parse(event.data);
         var contents = "";
         for (var i = 0; i < chat_list.length; i++) {
-          contents = chat_list[i].user + " : " + chat_list[i].message + " " + chat_list[i].time + "<a href=\"/test1/iine?id=" + chat_list[i].id + "\">★</a>" + chat_list[i].iine + "<a href=\"/test1/eform?id=" + chat_list[i].id + "\">編集</a> " + "<a href=\"/test1/delete?id=" + chat_list[i].id + "\">削除</a>" + "<br>" + contents;
+          contents = chat_list[i].user + " : " + chat_list[i].message + "&nbsp;" + chat_list[i].time + "<a href=\"/test1/iine?id=" + chat_list[i].id + "\">★</a>" + chat_list[i].iine + "<a href=\"/test1/eform?id=" + chat_list[i].id + "\">編集</a> " + "<a href=\"/test1/delete?id=" + chat_list[i].id + "\">削除</a>" + "<br>" + contents;
         }
         console.log(contents);
         document.getElementById("chat_list").innerHTML = contents;
@@ -72,7 +81,7 @@
     var time = month + "/" + day + " " + hour + ":" + minute + ":" + second;
   </script>
 
-  <form action="/test1/send" method="post">
+  <form action="/test1/send" method="post" id="sono1">
     <input type="text" name="message">
     <input type="submit" value="送信">
     <input id="Time" type="hidden" size="30" name="time" value="">
@@ -90,9 +99,11 @@
     </form>
   </div>
 
-  <form action="/test1/search" method="post">
-    <input type="text" name="user" value="" /><br>
-    <input type="submit" value="検索" />
+  <form method="post" id="sono2">
+    <input type="text" name="keyword" value="" /><br>
+    <input type="submit" value="ユーザ検索" formaction="/test1/usearch" />
+    <input type="submit" value="日時検索" formaction="/test1/tsearch" />
+    <input type="submit" value="メッセージ検索" formaction="/test1/msearch" />
   </form>
 
 </body>

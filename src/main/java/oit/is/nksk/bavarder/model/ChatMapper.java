@@ -37,4 +37,10 @@ public interface ChatMapper {
   @Select("SELECT * FROM chat WHERE USER = #{user}")
   ArrayList<Chat> UserSearch(String user);
 
+  @Select("SELECT * FROM chat WHERE TIME LIKE #{time} || '%'")
+  ArrayList<Chat> TimeSearch(String time);
+
+  @Select("SELECT * FROM chat WHERE MESSAGE LIKE '%' || #{message} || '%'")
+  ArrayList<Chat> MessageSearch(String message);
+
 }
