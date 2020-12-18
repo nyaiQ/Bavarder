@@ -85,9 +85,23 @@ public class BavarderController {
     return "chat.html";
   }
 
-  @PostMapping("/search")
-  public String search(@RequestParam String user, ModelMap model) {
-    ArrayList<Chat> results = cMapper.UserSearch(user);
+  @PostMapping("/usearch")
+  public String usearch(@RequestParam String keyword, ModelMap model) {
+    ArrayList<Chat> results = cMapper.UserSearch(keyword);
+    model.addAttribute("results", results);
+    return "result.html";
+  }
+
+  @PostMapping("/tsearch")
+  public String tsearch(@RequestParam String keyword, ModelMap model) {
+    ArrayList<Chat> results = cMapper.TimeSearch(keyword);
+    model.addAttribute("results", results);
+    return "result.html";
+  }
+
+  @PostMapping("/msearch")
+  public String msearch(@RequestParam String keyword, ModelMap model) {
+    ArrayList<Chat> results = cMapper.MessageSearch(keyword);
     model.addAttribute("results", results);
     return "result.html";
   }
