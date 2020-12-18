@@ -17,6 +17,7 @@ public interface ChatMapper {
 
   @Select("SELECT * FROM chat WHERE ID=#{id}")
   Chat selectByID(int id);
+
   /**
    * @param chat
    */
@@ -24,14 +25,16 @@ public interface ChatMapper {
   @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
   void insertChat(Chat chat);
 
-
   @Update("UPDATE CHAT SET iine = iine+1 WHERE ID = #{id}")
   void updateiinecount(int id);
 
   @Update("UPDATE CHAT SET message = #{message} WHERE ID = #{id}")
-  void updatemessage(int id,String message);
+  void updatemessage(int id, String message);
 
   @Delete("DELETE FROM chat WHERE ID = #{id}")
   boolean deleteByID(int id);
+
+  @Select("SELECT * FROM chat WHERE USER = #{user}")
+  ArrayList<Chat> UserSearch(String user);
 
 }

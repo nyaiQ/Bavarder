@@ -1,6 +1,7 @@
 package oit.is.nksk.bavarder.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,12 +33,11 @@ public class BavarderController {
     return "chat.html";
   }
 
-
   @PostMapping("/send")
-  public String send(@RequestParam String message, String time,Principal prin, ModelMap model) {
+  public String send(@RequestParam String message, String time, Principal prin, ModelMap model) {
     String name = prin.getName();
     int initiine = 0;
-    asyncChat.syncSubmitChat(name, message, time,initiine);
+    asyncChat.syncSubmitChat(name, message, time, initiine);
     model.addAttribute("name", name);
     return "chat.html";
   }
@@ -63,7 +63,7 @@ public class BavarderController {
   @GetMapping("/eform")
   public String eform(@RequestParam Integer id, Principal prin, ModelMap model) {
     String name = prin.getName();
-    Chat chat=cMapper.selectByID(id);
+    Chat chat = cMapper.selectByID(id);
     model.addAttribute("name", name);
     model.addAttribute("chat", chat);
     return "chat.html";
@@ -72,7 +72,7 @@ public class BavarderController {
   @PostMapping("/edit")
   public String edit(@RequestParam Integer id, @RequestParam String message, Principal prin, ModelMap model) {
     String name = prin.getName();
-    asyncChat.editMessage(id,message);
+    asyncChat.editMessage(id, message);
     model.addAttribute("name", name);
     return "chat.html";
   }
@@ -81,6 +81,20 @@ public class BavarderController {
   public String delete(@RequestParam Integer id, Principal prin, ModelMap model) {
     String name = prin.getName();
     cMapper.deleteByID(id);
+    model.addAttribute("name", name);
+    return "chat.html";
+  }
+
+  @PostMapping("/search")
+  public String search(@RequestParam String user, ModelMap model) {
+    ArrayList<Chat> results = cMapper.UserSearch(user);
+    model.addAttribute("results", results);
+    return "result.html";
+  }
+
+  @GetMapping("/rchat")
+  public String returnchat(Principal prin, ModelMap model) {
+    String name = prin.getName();
     model.addAttribute("name", name);
     return "chat.html";
   }

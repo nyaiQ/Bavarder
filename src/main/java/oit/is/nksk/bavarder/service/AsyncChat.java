@@ -28,7 +28,7 @@ public class AsyncChat {
   }
 
   @Transactional
-  public Chat syncSubmitChat(String name, String message, String time,int iine) {
+  public Chat syncSubmitChat(String name, String message, String time, int iine) {
     Chat chat = new Chat();
     chat.setUser(name);
     chat.setMessage(message);
@@ -47,7 +47,7 @@ public class AsyncChat {
 
   @Transactional
   public void editMessage(int id, String message) {
-    cMapper.updatemessage(id,message);
+    cMapper.updatemessage(id, message);
     this.dbUpdated = true;
   }
 
