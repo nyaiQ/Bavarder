@@ -28,7 +28,7 @@ public class SignupController {
     user.setUsername(username);
     user.setPassword(password);
     signup.signupUser(user);
-    return "signup.html";
+    return "sucomp.html";
   }
 
 }
