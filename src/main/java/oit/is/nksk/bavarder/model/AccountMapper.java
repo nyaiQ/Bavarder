@@ -7,11 +7,13 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface AccountMapper {
-  @Insert("INSERT INTO user (username,password) VALUES (#{username},#{password});")
+  @Insert("INSERT INTO user (userid,username,password) VALUES (#{userid},#{username},#{password});")
   @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
   void insertUser(Account user);
 
-  @Select("SELECT username, password FROM user WHERE username = #{username}")
-  Account findUser(String username);
+  @Select("SELECT userid,username,password FROM user WHERE userid = #{userid}")
+  Account findUser(String userid);
 
+  @Select("SELECT EXISTS (SELECT * FROM user WHERE userid = #{userid})")
+  boolean isExist(String userid);
 }
