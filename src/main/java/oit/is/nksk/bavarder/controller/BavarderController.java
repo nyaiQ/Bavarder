@@ -2,6 +2,7 @@ package oit.is.nksk.bavarder.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -36,8 +37,9 @@ public class BavarderController {
   @PostMapping("/send")
   public String send(@RequestParam String message, String time, Principal prin, ModelMap model) {
     String name = prin.getName();
-    int initiine = 0;
-    asyncChat.syncSubmitChat(name, message, time, initiine);
+    if (!message.matches("[\\s]+") && message != null && !message.isEmpty()){
+      asyncChat.syncSubmitChat(name, message, time, 0);
+    }
     model.addAttribute("name", name);
     return "chat.html";
   }

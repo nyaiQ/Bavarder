@@ -37,6 +37,7 @@
       height: 500px;
       color: black;
       background-color: white;
+      overflow-x:auto;
     }
 
     button {
@@ -53,7 +54,7 @@
         var chat_list = JSON.parse(event.data);
         var contents = "";
         for (var i = 0; i < chat_list.length; i++) {
-          contents = chat_list[i].user + " : " + chat_list[i].message + "&nbsp;" + chat_list[i].time + "<a href=\"/test1/iine?id=" + chat_list[i].id + "\">★</a>" + chat_list[i].iine + "<a href=\"/test1/eform?id=" + chat_list[i].id + "\">編集</a> " + "<a href=\"/test1/delete?id=" + chat_list[i].id + "\">削除</a>" + "<br>" + contents;
+          contents = chat_list[i].user + "<br>" + chat_list[i].message + "<br>" + chat_list[i].time + "<a href=\"/test1/iine?id=" + chat_list[i].id + "\">★</a>" + chat_list[i].iine + "<a href=\"/test1/eform?id=" + chat_list[i].id + "\">編集</a> " + "<a href=\"/test1/delete?id=" + chat_list[i].id + "\">削除</a>" + "<br><br>" + contents;
         }
         console.log(contents);
         document.getElementById("chat_list").innerHTML = contents;
