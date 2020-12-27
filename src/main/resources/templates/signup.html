@@ -8,11 +8,11 @@
 
 <body>
   <form action="/test2/signup/register" method="post">
+    <div th:if="${error}">
+      [[${error}]]
+    </div>
     ユーザ名
     <input type="text" name="userid" /><br>
-    <div th:if="${error}">
-      [[${error}]] は既に存在します
-    </div>
     パスワード
     <input type="password" name="password" /><br>
     <input type="submit" value="登録">

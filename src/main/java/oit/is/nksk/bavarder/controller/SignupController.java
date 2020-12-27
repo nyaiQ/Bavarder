@@ -1,5 +1,7 @@
 package oit.is.nksk.bavarder.controller;
 
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,19 +30,29 @@ public class SignupController {
   }
 
   @PostMapping("/signup/register")
-  public String register(@RequestParam String userid, @RequestParam String password,ModelMap model) {
-    if (aMapper.isExist(userid)) {
-      model.addAttribute("error", userid);
+  public String register(@RequestParam String userid, @RequestParam String password, ModelMap model) {
+    if (userid == null || userid.isEmpty() || password == null || password.isEmpty()) {
+      model.addAttribute("error", "ユーザ名またはパスワードを入力してください");
       return "signup.html";
     }
-    else {
-      Account user = new Account();
-      user.setUserid(userid);
-      user.setUsername(userid);
-      user.setPassword(password);
-      signup.signupUser(user);
-      return "sucomp.html";
+    if (!Pattern.compile("^[a-zA-Z0-9]{1,8}$").matcher(userid).find()) {
+      model.addAttribute("error", "ユーザ名は半角英数字1文字以上8文字以下で入力してください");
+      return "signup.html";
     }
+    if (!Pattern.compile("^[a-zA-Z0-9]{6,12}$").matcher(password).find()) {
+      model.addAttribute("error", "パスワードは半角英数字6文字以上12文字以下で入力してください");
+      return "signup.html";
+    }
+    if (aMapper.isExist(userid)) {
+      model.addAttribute("error", userid + "は既に存在しています");
+      return "signup.html";
+    }
+    Account user = new Account();
+    user.setUserid(userid);
+    user.setUsername(userid);
+    user.setPassword(password);
+    signup.signupUser(user);
+    return "sucomp.html";
   }
 
 }
