@@ -10,5 +10,8 @@ CREATE TABLE user (
   id IDENTITY,
   userid CHAR NOT NULL,
   username CHAR NOT NULL,
-  password CHAR NOT NULL
+  password CHAR NOT NULL,
+  birth DATE,
+  gender CHAR,
+  comment CHAR
 );
