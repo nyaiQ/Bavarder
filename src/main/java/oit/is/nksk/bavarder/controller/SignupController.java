@@ -48,8 +48,8 @@ public class SignupController {
       return "signup.html";
     }
     Account user = new Account();
-    user.setUserId(userid);
-    user.setUserName(userid);
+    user.setUserid(userid);
+    user.setUsername(userid);
     user.setPassword(password);
     signup.signupUser(user);
     return "sucomp.html";

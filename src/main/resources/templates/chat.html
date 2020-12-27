@@ -37,7 +37,7 @@
       height: 500px;
       color: black;
       background-color: white;
-      overflow-x: auto;
+      overflow-x:auto;
     }
 
     button {
@@ -67,7 +67,7 @@
   <button type="button" onclick="document.location='/logout';">ログアウト</button>
 
   <div th:if="${name}">
-    name : <a th:href="@{/test3/moveprof(id=${name})}">[[${name}]]</a>
+    name : [[${name}]]
   </div>
 
   <script>

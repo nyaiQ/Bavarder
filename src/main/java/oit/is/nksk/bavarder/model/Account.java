@@ -1,15 +1,10 @@
 package oit.is.nksk.bavarder.model;
 
-import java.sql.Date;
-
 public class Account {
   int id;
   String userid;
   String username;
   String password;
-  Date birth;
-  String gender;
-  String comment;
 
   public int getId() {
     return id;
@@ -19,19 +14,19 @@ public class Account {
     this.id = id;
   }
 
-  public String getUserName() {
+  public String getUsername() {
     return username;
   }
 
-  public void setUserName(String username) {
+  public void setUsername(String username) {
     this.username = username;
   }
 
-  public String getUserId() {
+  public String getUserid() {
     return userid;
   }
 
-  public void setUserId(String userid) {
+  public void setUserid(String userid) {
     this.userid = userid;
   }
 
@@ -41,29 +36,5 @@ public class Account {
 
   public void setPassword(String password) {
     this.password = password;
-  }
-
-  public Date getBirth() {
-    return birth;
-  }
-
-  public void setBirth(Date birth) {
-    this.birth = birth;
-  }
-
-  public String getGender() {
-    return gender;
-  }
-
-  public void setGender(String gender) {
-    this.gender = gender;
-  }
-
-  public String getComment() {
-    return comment;
-  }
-
-  public void setComment(String comment) {
-    this.comment = comment;
   }
 }
