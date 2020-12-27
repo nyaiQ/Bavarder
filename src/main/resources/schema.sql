@@ -11,7 +11,7 @@ CREATE TABLE user (
   userid CHAR NOT NULL,
   username CHAR NOT NULL,
   password CHAR NOT NULL,
-  birth DATE,
+  birth CHAR,
   gender CHAR,
   comment CHAR
 );
