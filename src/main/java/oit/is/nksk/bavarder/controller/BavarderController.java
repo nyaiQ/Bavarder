@@ -29,7 +29,6 @@ public class BavarderController {
   @GetMapping("/chat")
   public String chat(Principal prin, ModelMap model) {
     String name = prin.getName();
-
     model.addAttribute("name", name);
     return "chat.html";
   }
