@@ -128,4 +128,39 @@ public class BavarderController {
     return "result.html";
   }
 
+  @GetMapping("/resultform")
+  public String resultform(@RequestParam Integer id, @RequestParam String keyword,
+  Principal prin, ModelMap model) {
+    String name = prin.getName();
+    Chat chat = cMapper.selectByID(id);
+    ArrayList<Chat> results = cMapper.UserSearch(keyword);
+    model.addAttribute("name", name);
+    model.addAttribute("chat", chat);
+    model.addAttribute("keyword", keyword);
+    model.addAttribute("results", results);
+    return "result.html";
+  }
+
+  @PostMapping("/resultedit")
+  public String resultedit(@RequestParam Integer id, @RequestParam String keyword, @RequestParam String message, Principal prin, ModelMap model) {
+    String name = prin.getName();
+    asyncChat.editMessage(id, message);
+    ArrayList<Chat> results = cMapper.UserSearch(keyword);
+    model.addAttribute("name", name);
+    model.addAttribute("keyword", keyword);
+    model.addAttribute("results", results);
+    return "result.html";
+  }
+
+  @GetMapping("/resultdelete")
+  public String resultdelete(@RequestParam Integer id, @RequestParam String keyword, Principal prin, ModelMap model) {
+    String name = prin.getName();
+    cMapper.deleteByID(id);
+    ArrayList<Chat> results = cMapper.UserSearch(keyword);
+    model.addAttribute("name", name);
+    model.addAttribute("keyword", keyword);
+    model.addAttribute("results", results);
+    return "result.html";
+  }
+
 }

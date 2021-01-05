@@ -65,7 +65,7 @@ public class AsyncChat {
         }
         ArrayList<Chat> chatList = this.syncShowChatList();
         emitter.send(chatList);
-        TimeUnit.MILLISECONDS.sleep(1000);
+        TimeUnit.MILLISECONDS.sleep(500);
         dbUpdated = false;
       }
     } catch (Exception e) {
