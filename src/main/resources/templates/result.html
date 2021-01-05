@@ -15,13 +15,20 @@
     for (var i = 0; i < result.length; i++) {
       contents = "<br><br>" + contents;
       if (result[i].user == myname) {
-        contents = "<a href=\"/test1/eform?id=" + result[i].id + "\">編集</a> " + "<a href=\"/test1/delete?id=" + result[i].id + "\">削除</a>" + contents;
+        contents = "<a href=\"/test1/resultform?id=" + result[i].id + "&keyword=" + keyword + "\">編集</a> " + "<a href=\"/test1/resultdelete?id=" + result[i].id + "&keyword=" + keyword + "\">削除</a>" + contents;
       }
       contents = result[i].user + "<br>" + result[i].message + "<br>" + result[i].time + "<a href=\"/test1/resultiine?id=" + result[i].id + "&keyword=" + keyword + "\">★</a>" + result[i].iine + contents;
     }
     document.getElementById("chat_list").innerHTML = contents;
   </script>
+
+  <div th:if="${chat}">
+    <form th:action="@{/test1/resultedit(id=${chat.id}, keyword=${keyword})}" method="post">
+      <input type="text" name="message" th:value="${chat.message}" /><br>
+      <input type="submit" value="編集"><input type="reset" value="リセット">
+    </form>
   </div>
+
   <a href="/test1/rchat">チャット画面に戻る</a>
 </body>
 
