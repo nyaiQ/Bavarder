@@ -114,4 +114,12 @@ public class BavarderController {
     return "chat.html";
   }
 
+  @GetMapping("/resultiine")
+  public String resultiine(@RequestParam Integer id, Principal prin, ModelMap model) {
+    String name = prin.getName();
+    asyncChat.iineCount(id);
+    model.addAttribute("name", name);
+    return "result.html";
+  }
+
 }
