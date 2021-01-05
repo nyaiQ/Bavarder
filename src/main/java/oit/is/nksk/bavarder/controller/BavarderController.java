@@ -87,8 +87,11 @@ public class BavarderController {
   }
 
   @PostMapping("/usearch")
-  public String usearch(@RequestParam String keyword, ModelMap model) {
+  public String usearch(@RequestParam String keyword, Principal prin, ModelMap model) {
     ArrayList<Chat> results = cMapper.UserSearch(keyword);
+    String name = prin.getName();
+    model.addAttribute("name", name);
+    model.addAttribute("keyword", keyword);
     model.addAttribute("results", results);
     return "result.html";
   }
@@ -115,10 +118,13 @@ public class BavarderController {
   }
 
   @GetMapping("/resultiine")
-  public String resultiine(@RequestParam Integer id, Principal prin, ModelMap model) {
-    String name = prin.getName();
+  public String resultiine(@RequestParam Integer id, @RequestParam String keyword, Principal prin, ModelMap model) {
     asyncChat.iineCount(id);
+    ArrayList<Chat> results = cMapper.UserSearch(keyword);
+    String name = prin.getName();
     model.addAttribute("name", name);
+    model.addAttribute("keyword", keyword);
+    model.addAttribute("results", results);
     return "result.html";
   }
 

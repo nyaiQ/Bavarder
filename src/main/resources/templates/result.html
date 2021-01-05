@@ -7,21 +7,20 @@
 
 <body>
   <p id="chat_list"></p>
-    <script th:inline="javascript">
-          var contents = "";
-          var myname = [[${ name }]];
-          var result = [[${ results }]];
-          for (var i = 0; i < result.length; i++) {
-            contents = "<br><br>" + contents;
-            if (result[i].user == myname) {
-              contents = "<a href=\"/test1/eform?id=" + result[i].id + "\">編集</a> " + "<a href=\"/test1/delete?id=" + result[i].id + "\">削除</a>" + contents;
-            }
-            contents = result[i].user + "<br>" + result[i].message + "<br>" + result[i].time + "<a href=\"/test1/resultiine?id=" + result[i].id + "\">★</a>" + result[i].iine + contents;
-          }
-          document.getElementById("chat_list").innerHTML = contents;
+  <script th:inline="javascript">
+    var contents = "";
+    var myname = [[${ name }]];
+    var result = [[${ results }]];
+    var keyword = [[${ keyword }]];
+    for (var i = 0; i < result.length; i++) {
+      contents = "<br><br>" + contents;
+      if (result[i].user == myname) {
+        contents = "<a href=\"/test1/eform?id=" + result[i].id + "\">編集</a> " + "<a href=\"/test1/delete?id=" + result[i].id + "\">削除</a>" + contents;
       }
-      }
-    </script>
+      contents = result[i].user + "<br>" + result[i].message + "<br>" + result[i].time + "<a href=\"/test1/resultiine?id=" + result[i].id + "&keyword=" + keyword + "\">★</a>" + result[i].iine + contents;
+    }
+    document.getElementById("chat_list").innerHTML = contents;
+  </script>
   </div>
   <a href="/test1/rchat">チャット画面に戻る</a>
 </body>
