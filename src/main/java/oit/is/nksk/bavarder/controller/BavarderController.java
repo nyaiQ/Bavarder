@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import oit.is.nksk.bavarder.service.AsyncChat;
@@ -86,29 +89,26 @@ public class BavarderController {
     return "chat.html";
   }
 
-  @PostMapping("/usearch")
-  public String usearch(@RequestParam String keyword, Principal prin, ModelMap model) {
-    ArrayList<Chat> results = cMapper.UserSearch(keyword);
+  @PostMapping("/search")
+  public String search(@RequestParam String keyword, @RequestParam String action, Principal prin, ModelMap model) {
+    ArrayList<Chat> results = new ArrayList<Chat>();
+    if (action.equals("ユーザ検索")) {
+       results = cMapper.UserSearch(keyword);
+    }
+    if (action.equals("日時検索")) {
+      results = cMapper.TimeSearch(keyword);
+    }
+    if (action.equals("メッセージ検索")) {
+      results = cMapper.MessageSearch(keyword);
+    }
     String name = prin.getName();
     model.addAttribute("name", name);
     model.addAttribute("keyword", keyword);
     model.addAttribute("results", results);
+    model.addAttribute("action", action);
     return "result.html";
   }
 
-  @PostMapping("/tsearch")
-  public String tsearch(@RequestParam String keyword, ModelMap model) {
-    ArrayList<Chat> results = cMapper.TimeSearch(keyword);
-    model.addAttribute("results", results);
-    return "result.html";
-  }
-
-  @PostMapping("/msearch")
-  public String msearch(@RequestParam String keyword, ModelMap model) {
-    ArrayList<Chat> results = cMapper.MessageSearch(keyword);
-    model.addAttribute("results", results);
-    return "result.html";
-  }
 
   @GetMapping("/rchat")
   public String returnchat(Principal prin, ModelMap model) {
@@ -118,48 +118,88 @@ public class BavarderController {
   }
 
   @GetMapping("/resultiine")
-  public String resultiine(@RequestParam Integer id, @RequestParam String keyword, Principal prin, ModelMap model) {
+  public String resultiine(@RequestParam Integer id, @RequestParam String keyword, @RequestParam String action, Principal prin, ModelMap model) {
     asyncChat.iineCount(id);
-    ArrayList<Chat> results = cMapper.UserSearch(keyword);
+    ArrayList<Chat> results = new ArrayList<Chat>();
+    if (action.equals("ユーザ検索")) {
+      results = cMapper.UserSearch(keyword);
+    }
+    if (action.equals("日時検索")) {
+      results = cMapper.TimeSearch(keyword);
+    }
+    if (action.equals("メッセージ検索")) {
+      results = cMapper.MessageSearch(keyword);
+    }
     String name = prin.getName();
     model.addAttribute("name", name);
     model.addAttribute("keyword", keyword);
     model.addAttribute("results", results);
+    model.addAttribute("action", action);
     return "result.html";
   }
 
   @GetMapping("/resultform")
-  public String resultform(@RequestParam Integer id, @RequestParam String keyword,
+  public String resultform(@RequestParam Integer id, @RequestParam String keyword, @RequestParam String action,
   Principal prin, ModelMap model) {
     String name = prin.getName();
     Chat chat = cMapper.selectByID(id);
-    ArrayList<Chat> results = cMapper.UserSearch(keyword);
+    ArrayList<Chat> results = new ArrayList<Chat>();
+    if (action.equals("ユーザ検索")) {
+      results = cMapper.UserSearch(keyword);
+    }
+    if (action.equals("日時検索")) {
+      results = cMapper.TimeSearch(keyword);
+    }
+    if (action.equals("メッセージ検索")) {
+      results = cMapper.MessageSearch(keyword);
+    }
     model.addAttribute("name", name);
     model.addAttribute("chat", chat);
     model.addAttribute("keyword", keyword);
     model.addAttribute("results", results);
+    model.addAttribute("action", action);
     return "result.html";
   }
 
   @PostMapping("/resultedit")
-  public String resultedit(@RequestParam Integer id, @RequestParam String keyword, @RequestParam String message, Principal prin, ModelMap model) {
+  public String resultedit(@RequestParam Integer id, @RequestParam String keyword, @RequestParam String action, @RequestParam String message, Principal prin, ModelMap model) {
     String name = prin.getName();
     asyncChat.editMessage(id, message);
-    ArrayList<Chat> results = cMapper.UserSearch(keyword);
+    ArrayList<Chat> results = new ArrayList<Chat>();
+    if (action.equals("ユーザ検索")) {
+      results = cMapper.UserSearch(keyword);
+    }
+    if (action.equals("日時検索")) {
+      results = cMapper.TimeSearch(keyword);
+    }
+    if (action.equals("メッセージ検索")) {
+      results = cMapper.MessageSearch(keyword);
+    }
     model.addAttribute("name", name);
     model.addAttribute("keyword", keyword);
     model.addAttribute("results", results);
+    model.addAttribute("action", action);
     return "result.html";
   }
 
   @GetMapping("/resultdelete")
-  public String resultdelete(@RequestParam Integer id, @RequestParam String keyword, Principal prin, ModelMap model) {
+  public String resultdelete(@RequestParam Integer id, @RequestParam String keyword, @RequestParam String action, Principal prin, ModelMap model) {
     String name = prin.getName();
     cMapper.deleteByID(id);
-    ArrayList<Chat> results = cMapper.UserSearch(keyword);
+    ArrayList<Chat> results = new ArrayList<Chat>();
+    if (action.equals("ユーザ検索")) {
+      results = cMapper.UserSearch(keyword);
+    }
+    if (action.equals("日時検索")) {
+      results = cMapper.TimeSearch(keyword);
+    }
+    if (action.equals("メッセージ検索")) {
+      results = cMapper.MessageSearch(keyword);
+    }
     model.addAttribute("name", name);
     model.addAttribute("keyword", keyword);
     model.addAttribute("results", results);
+    model.addAttribute("action", action);
     return "result.html";
   }
 
