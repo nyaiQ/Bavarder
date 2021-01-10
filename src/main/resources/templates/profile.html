@@ -11,7 +11,9 @@
   [[${b}]]<br>
   [[${g}]]<br>
   [[${c}]]<br>
-  <a href="/test3/eprofform">編集</a>
+  <div th:if="${action == null}">
+    <a href="/test3/eprofform">編集</a>
+  </div>
   <div th:if="${profile}">
     <script>
       console.log(profile);
@@ -26,7 +28,20 @@
       <input type="submit" value="編集">
     </form>
   </div>
-  <a href="/test1/rchat">チャット画面に戻る</a>
+  <div th:if="${action}">
+    <p id="back"></p>
+    <script th:inline="javascript">
+      var result = [[${ results }]];
+      console.log(result);
+      var keyword = [[${ keyword }]];
+      var action = [[${ action }]];
+      var back = "<a href=\"/test1/rsearch?keyword=" + keyword + "&action=" + action + " \">検索結果に戻る</a>";
+      document.getElementById("back").innerHTML = back;
+    </script>
+  </div>
+  <div th:if="${action == null}">
+    <a href="/test1/rchat">チャット画面に戻る</a>
+  </div>
 
 </body>
 

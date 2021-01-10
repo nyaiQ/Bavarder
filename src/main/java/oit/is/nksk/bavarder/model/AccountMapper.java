@@ -1,5 +1,6 @@
 package oit.is.nksk.bavarder.model;
 
+import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -22,6 +23,9 @@ public interface AccountMapper {
   @Select("SELECT * FROM user WHERE userid = #{id}")
   Account viewProfile(String id);
 
+  @Select("SELECT * FROM user WHERE userid LIKE '%' || #{id} || '%'")
+  ArrayList<Account> searchProfile(String id);
+
   @Update("UPDATE USER SET username = #{username} ,birth = #{birth} ,gender = #{gender} ,comment = #{comment} WHERE userid = #{userid}")
-  void editProf(String userid, String username, String birth ,String gender,String comment);
+  void editProf(String userid, String username, String birth, String gender, String comment);
 }

@@ -13,9 +13,14 @@ public class ResultService {
   @Autowired
   AccountMapper aMapper;
 
-  public Account searchProf(String id) {
-    ArrayList<Account> prof = new ArrayList<Account>();
-    prof = aMapper.viewProfile(id);
+  public ArrayList<Account> searchProf(String id) {
+    ArrayList<Account> prof = aMapper.searchProfile(id);
     return prof;
   }
+
+  public Account viewProf(String id) {
+    Account prof = aMapper.viewProfile(id);
+    return prof;
+  }
+
 }

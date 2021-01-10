@@ -43,9 +43,13 @@ public class ProfileController {
   }
 
   @PostMapping("/editprof")
-  public String profedit(@RequestParam String name, @RequestParam String birth,
-  @RequestParam String gender, @RequestParam String comment, Principal prin, ModelMap model) {
+  public String profedit(@RequestParam String name, @RequestParam String birth, @RequestParam String gender,
+      @RequestParam String comment, Principal prin, ModelMap model) {
     pservice.editProf(prin.getName(), name, birth, gender, comment);
+    model.addAttribute("n", name);
+    model.addAttribute("b", birth);
+    model.addAttribute("g", gender);
+    model.addAttribute("c", comment);
     return "profile.html";
   }
 
