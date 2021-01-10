@@ -11,14 +11,21 @@
     var contents = "";
     var myname = [[${ name }]];
     var result = [[${ results }]];
+    console.log(result);
     var keyword = [[${ keyword }]];
     var action = [[${ action }]];
-    for (var i = 0; i < result.length; i++) {
-      contents = "<br><br>" + contents;
-      if (result[i].user == myname) {
-        contents = "<a href=\"/test1/resultform?id=" + result[i].id + "&keyword=" + keyword + "&action=" + action + "\">編集</a> " + "<a href=\"/test1/resultdelete?id=" + result[i].id + "&keyword=" + keyword + "&action=" + action + "\">削除</a>" + contents;
+    if (action == "ユーザ検索") {
+      for (var i = 0; i < result.length; i++) {
+        contents = "<a href = \"/test1/showprofile?id=" + result[i].userid + "&keyword=" + keyword + "&action=" + action + "\">" + result[i].userid + "</a><br><br>" + contents;
       }
-      contents = result[i].user + "<br>" + result[i].message + "<br>" + result[i].time + "<a href=\"/test1/resultiine?id=" + result[i].id + "&keyword=" + keyword + "&action=" + action + "\">★</a>" + result[i].iine + contents;
+    } else {
+      for (var i = 0; i < result.length; i++) {
+        contents = "<br><br>" + contents;
+        if (result[i].user == myname) {
+          contents = "<a href=\"/test1/resultform?id=" + result[i].id + "&keyword=" + keyword + "&action=" + action + "\">編集</a> " + "<a href=\"/test1/resultdelete?id=" + result[i].id + "&keyword=" + keyword + "&action=" + action + "\">削除</a>" + contents;
+        }
+        contents = result[i].user + "<br>" + result[i].message + "<br>" + result[i].time + "<a href=\"/test1/resultiine?id=" + result[i].id + "&keyword=" + keyword + "&action=" + action + "\">★</a>" + result[i].iine + contents;
+      }
     }
     document.getElementById("chat_list").innerHTML = contents;
   </script>

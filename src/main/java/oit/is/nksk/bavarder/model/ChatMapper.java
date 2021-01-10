@@ -34,7 +34,7 @@ public interface ChatMapper {
   @Delete("DELETE FROM chat WHERE ID = #{id}")
   boolean deleteByID(int id);
 
-  @Select("SELECT * FROM chat WHERE USER = #{user}")
+  @Select("SELECT * FROM chat WHERE USER LIKE '%' || #{user} || '%'")
   ArrayList<Chat> UserSearch(String user);
 
   @Select("SELECT * FROM chat WHERE TIME LIKE #{time} || '%'")
