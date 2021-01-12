@@ -79,7 +79,11 @@ public class BavarderController {
   @PostMapping("/edit")
   public String edit(@RequestParam Integer id, @RequestParam String message, Principal prin, ModelMap model) {
     String name = prin.getName();
-    asyncChat.editMessage(id, message);
+
+    if (name.equals(cMapper.selectByID(id).getUser())) {
+      asyncChat.editMessage(id, message);
+    }
+
     model.addAttribute("name", name);
     return "chat.html";
   }
@@ -87,7 +91,11 @@ public class BavarderController {
   @GetMapping("/delete")
   public String delete(@RequestParam Integer id, Principal prin, ModelMap model) {
     String name = prin.getName();
-    cMapper.deleteByID(id);
+
+    if (name.equals(cMapper.selectByID(id).getUser())) {
+      cMapper.deleteByID(id);
+    }
+
     model.addAttribute("name", name);
     return "chat.html";
   }
@@ -160,7 +168,11 @@ public class BavarderController {
   public String resultedit(@RequestParam Integer id, @RequestParam String keyword, @RequestParam String action,
       @RequestParam String message, Principal prin, ModelMap model) {
     String name = prin.getName();
-    asyncChat.editMessage(id, message);
+
+    if (name.equals(cMapper.selectByID(id).getUser())) {
+      asyncChat.editMessage(id, message);
+    }
+
     ArrayList<Chat> results = new ArrayList<Chat>();
     if (action.equals("日時検索")) {
       results = cMapper.TimeSearch(keyword);
@@ -179,7 +191,11 @@ public class BavarderController {
   public String resultdelete(@RequestParam Integer id, @RequestParam String keyword, @RequestParam String action,
       Principal prin, ModelMap model) {
     String name = prin.getName();
-    cMapper.deleteByID(id);
+
+    if (name.equals(cMapper.selectByID(id).getUser())) {
+      cMapper.deleteByID(id);
+    }
+
     ArrayList<Chat> results = new ArrayList<Chat>();
     if (action.equals("日時検索")) {
       results = cMapper.TimeSearch(keyword);
