@@ -60,7 +60,8 @@ public class BavarderAuthConfiguration extends WebSecurityConfigurerAdapter {
     http.formLogin();
 
     // antMatchers().authenticated がantMatchersへのアクセスに認証を行うことを示す
-    http.authorizeRequests().antMatchers("/test1/**").authenticated();
+    http.authorizeRequests().antMatchers("/chat/**").authenticated();
+    http.authorizeRequests().antMatchers("/profile/**").authenticated();
 
     // 以下2行はh2-consoleを利用するための設定なので，開発が完了したらコメントアウトすることが望ましい
     http.csrf().disable();

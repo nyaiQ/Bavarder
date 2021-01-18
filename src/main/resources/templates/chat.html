@@ -10,34 +10,65 @@
       background-color: skyblue;
     }
 
-    #sono1 {
+    #chat_list {
       position: absolute;
-      left: 58%;
-      top: 15%;
-      width: 40%;
-      height: 500px;
-      background-color: white;
-      text-align: center;
-    }
-
-    #sono2 {
-      position: absolute;
-      left: 58%;
-      top: 50%;
-      width: 40%;
-      height: 500px;
-      text-align: center;
-    }
-
-    .chat {
-      position: absolute;
+      top: 10%;
+      bottom: 3%;
       left: 3%;
-      top: 15%;
-      width: 50%;
-      height: 500px;
+      right: 30%;
+      margin: auto;
       color: black;
+      border: solid lightskyblue 10px;
+      border-radius: 50px;
       background-color: white;
       overflow-x: auto;
+      padding-left: 10px;
+    }
+
+    #search_bg {
+      position: absolute;
+      top: 10%;
+      bottom: 50%;
+      left: 73%;
+      right: 3%;
+      margin: auto;
+      background-color: white;
+      border: solid lightskyblue 10px;
+      border-radius: 50px;
+      text-align: center;
+    }
+
+    #search_form {
+      position: absolute;
+      top: 20%;
+      bottom: 20%;
+      left: 0%;
+      right: 0%;
+      margin: auto;
+      color: #000000;
+    }
+
+    #send_bg {
+      position: absolute;
+      top: 55%;
+      bottom: 3%;
+      left: 73%;
+      right: 3%;
+      margin: auto;
+      background-color: white;
+      border: solid lightskyblue 10px;
+      border-radius: 50px;
+      text-align: center;
+    }
+
+    #send_form {
+      position: absolute;
+      top: 40%;
+      bottom: 0%;
+      left: 0%;
+      right: 0%;
+      margin: auto;
+      color: #000000;
     }
 
     button {
@@ -47,7 +78,7 @@
   </style>
   <script th:inline="javascript">
     window.onload = function () {
-      var sse = new EventSource("/test1/pushChat");
+      var sse = new EventSource("/chat/pushChat");
       sse.onmessage = function (event) {
         console.log("sse.onmessage");
         console.log(event.data);
@@ -57,12 +88,12 @@
         for (var i = 0; i < chat_list.length; i++) {
           contents = "<br><br>" + contents;
           if (chat_list[i].user == myname) {
-            contents = "<a href=\"/test1/eform?id=" + chat_list[i].id + "\">編集</a> " + "<a href=\"/test1/delete?id=" + chat_list[i].id + "\">削除</a>" + contents;
+            contents = "<a href=\"/chat/eform?id=" + chat_list[i].id + "\">編集</a> " + "<a href=\"/chat/delete?id=" + chat_list[i].id + "\">削除</a>" + contents;
           }
-          contents = chat_list[i].user + "<br>" + chat_list[i].message + "<br>" + chat_list[i].time + "<a href=\"/test1/iine?id=" + chat_list[i].id + "\">★</a>" + chat_list[i].iine + contents;
+          contents = chat_list[i].username + "<br>" + chat_list[i].message + "<br>" + chat_list[i].time + "<a href=\"/chat/iine?id=" + chat_list[i].id + "\">★</a>" + chat_list[i].iine + contents;
         }
         console.log(contents);
-        document.getElementById("chat_list").innerHTML = contents;
+        document.getElementById("chat_list").innerHTML = "<br>" + contents;
       }
     }
   </script>
@@ -72,7 +103,7 @@
   <button type="button" onclick="document.location='/logout';">ログアウト</button>
 
   <div th:if="${name}">
-    name : <a th:href="@{/test3/moveprof(id=${name})}">[[${name}]]</a>
+    name : <a th:href="@{/profile/moveprof(id=${name})}">[[${name}]]</a>
   </div>
 
   <script>
@@ -87,29 +118,36 @@
     var time = month + "/" + day + " " + hour + ":" + minute + ":" + second;
   </script>
 
-  <form action="/test1/send" method="post" id="sono1">
-    <input type="text" name="message">
-    <input type="submit" value="送信">
-    <input id="Time" type="hidden" size="30" name="time" value="">
-    <script>
-      document.getElementById('Time').value = time;
-    </script>
+  <form action="/chat/send" method="post" id="send_bg">
+    <div id="send_form">
+      <input type="text" name="message" maxlength="100">
+      <input type="submit" value="送信">
+      <input id="Time" type="hidden" size="30" name="time" value="">
+      <script>
+        document.getElementById('Time').value = time;
+      </script>
+    </div>
   </form>
 
-  <div class="chat" id="chat_list"></div>
-
   <div th:if="${chat}">
-    <form th:action="@{/test1/edit(id=${chat.id})}" method="post" id="sono1">
-      <input type="text" name="message" th:value="${chat.message}" /><br>
-      <input type="submit" value="編集"><input type="reset" value="リセット">
+    <form th:action="@{/chat/edit(id=${chat.id})}" method="post" id="send_bg">
+      <div id="send_form">
+        <input type="text" name="message" th:value="${chat.message}" /><br>
+        <input type="submit" value="編集"><input type="reset" value="リセット">
+      </div>
     </form>
   </div>
 
-  <form method="post" id="sono2">
-    <input type="text" name="keyword" value="" /><br>
-    <input type="submit" name = "action" value="ユーザ検索" formaction="/test1/search" />
-    <input type="submit" name = "action" value="日時検索" formaction="/test1/search" />
-    <input type="submit" name = "action" value="メッセージ検索" formaction="/test1/search" />
+  <div id="chat_list"></div>
+
+  <form method="post" id="search_bg">
+    <div id="search_form">
+      <h2>検索</h2>
+      <input type="text" name="keyword" value="" /><br>
+      <input type="submit" name="action" value="ユーザ検索" formaction="/chat/search" />
+      <input type="submit" name="action" value="日時検索" formaction="/chat/search" />
+      <input type="submit" name="action" value="メッセージ検索" formaction="/chat/search" />
+    </div>
   </form>
 
 </body>
