@@ -21,7 +21,7 @@ public interface ChatMapper {
   /**
    * @param chat
    */
-  @Insert("INSERT INTO chat (user,message,time,iine) VALUES (#{user},#{message},#{time},#{iine});")
+  @Insert("INSERT INTO chat (user,username,message,time,iine) VALUES (#{user},#{username},#{message},#{time},#{iine});")
   @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
   void insertChat(Chat chat);
 
@@ -30,6 +30,9 @@ public interface ChatMapper {
 
   @Update("UPDATE CHAT SET message = #{message} WHERE ID = #{id}")
   void updatemessage(int id, String message);
+
+  @Update("UPDATE CHAT SET username = #{username} WHERE user = #{userid}")
+  void updateusername(String userid, String username);
 
   @Delete("DELETE FROM chat WHERE ID = #{id}")
   boolean deleteByID(int id);

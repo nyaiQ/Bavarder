@@ -15,7 +15,7 @@ import oit.is.nksk.bavarder.model.Account;
 import oit.is.nksk.bavarder.model.AccountMapper;
 
 @Controller
-@RequestMapping("/test2")
+@RequestMapping("/register")
 public class SignupController {
 
   @Autowired

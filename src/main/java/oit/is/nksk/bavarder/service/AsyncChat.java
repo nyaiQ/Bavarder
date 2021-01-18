@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import oit.is.nksk.bavarder.model.AccountMapper;
 import oit.is.nksk.bavarder.model.Chat;
 import oit.is.nksk.bavarder.model.ChatMapper;
 
@@ -23,6 +24,9 @@ public class AsyncChat {
   @Autowired
   ChatMapper cMapper;
 
+  @Autowired
+  AccountMapper aMapper;
+
   public ArrayList<Chat> syncShowChatList() {
     return cMapper.selectAllChat();
   }
@@ -31,6 +35,7 @@ public class AsyncChat {
   public Chat syncSubmitChat(String name, String message, String time, int iine) {
     Chat chat = new Chat();
     chat.setUser(name);
+    chat.setUsername(aMapper.findUser(name).getUserName());
     chat.setMessage(message);
     chat.setTime(time);
     chat.setiine(iine);

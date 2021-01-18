@@ -18,9 +18,10 @@ import oit.is.nksk.bavarder.service.ResultService;
 import oit.is.nksk.bavarder.model.ChatMapper;
 import oit.is.nksk.bavarder.model.Chat;
 import oit.is.nksk.bavarder.model.Account;
+import oit.is.nksk.bavarder.model.AccountMapper;
 
 @Controller
-@RequestMapping("/test1")
+@RequestMapping("/chat")
 public class BavarderController {
 
   @Autowired
@@ -219,6 +220,7 @@ public class BavarderController {
     model.addAttribute("keyword", keyword);
     model.addAttribute("results", results);
     model.addAttribute("action", action);
+    model.addAttribute("userid", results.getUserId());
     model.addAttribute("n", results.getUserName());
     model.addAttribute("b", results.getBirth());
     model.addAttribute("g", results.getGender());

@@ -3,44 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <title>profile</title>
+  <style type="text/css">
+    body {
+      color: white;
+      background-color: skyblue;
+    }
+
+    #profile_bg {
+      position: absolute;
+      top: 3%;
+      bottom: 3%;
+      left: 30%;
+      right: 30%;
+      margin: auto;
+      color: black;
+      border: solid lightskyblue 10px;
+      border-radius: 50px;
+      background-color: white;
+      overflow-x: auto;
+    }
+
+    #profile {
+      text-align: center;
+    }
+
+    #edit_form {
+      text-align: center;
+    }
+
+    #bottom {
+      position: absolute;
+      bottom: 0%;
+      left: 31%;
+    }
+  </style>
 </head>
 
 <body>
-
-  [[${n}]]<br>
-  [[${b}]]<br>
-  [[${g}]]<br>
-  [[${c}]]<br>
+  <p id="back"></p>
+  <div id="profile_bg">
+    <div th:if="${n}">
+      <div id="profile">
+        <h1>[[${n}]]([[${userid}]])さんのプロフィール<br></h1>
+        <div th:if="${b != '' and b != null}">
+          誕生日 : [[${b}]]<br>
+        </div>
+        <div th:if="${g != '' and g != null}">
+          性別 : [[${g}]]<br>
+        </div>
+        [[${c}]]<br>
+        <div th:if="${action == null}">
+          <a href="/profile/eprofform">編集</a>
+        </div>
+      </div>
+    </div>
+    <div th:if="${profile}">
+      <script>
+        console.log(profile);
+      </script>
+      <form action="/profile/editprof" method="POST" id="edit_form">
+        <h1>編集</h1>
+        <input type="text" name="name" th:value="${profile.username}" minlength="1" maxlength="10" required><br>
+        <input type="date" name="birth" th:value="${profile.birth}"><br>
+        <input type="radio" name="gender" value="男">男
+        <input type="radio" name="gender" value="女">女
+        <input type="radio" name="gender" value="その他" checked="checked">その他<br>
+        <input type="text" name="comment" th:value="${profile.comment}" maxlength="30"><br>
+        <input type="submit" value="編集">
+      </form>
+    </div>
+    <div th:if="${action}">
+      <script th:inline="javascript">
+        var result = [[${ results }]];
+        console.log(result);
+        var keyword = [[${ keyword }]];
+        var action = [[${ action }]];
+        var back = "<a href=\"/chat/rsearch?keyword=" + keyword + "&action=" + action + " \" id=\"bottom\">検索結果に戻る</a>";
+        document.getElementById("back").innerHTML = back;
+      </script>
+    </div>
+  </div>
   <div th:if="${action == null}">
-    <a href="/test3/eprofform">編集</a>
-  </div>
-  <div th:if="${profile}">
-    <script>
-      console.log(profile);
-    </script>
-    <form action="/test3/editprof" method="POST">
-      <input type="text" name="name" th:value="${profile.username}"><br>
-      <input type="date" name="birth" th:value="${profile.birth}"><br>
-      <input type="radio" name="gender" value="男">男
-      <input type="radio" name="gender" value="女">女
-      <input type="radio" name="gender" value="その他" checked="checked">その他<br>
-      <input type="text" name="comment" th:value="${profile.comment}"><br>
-      <input type="submit" value="編集">
-    </form>
-  </div>
-  <div th:if="${action}">
-    <p id="back"></p>
-    <script th:inline="javascript">
-      var result = [[${ results }]];
-      console.log(result);
-      var keyword = [[${ keyword }]];
-      var action = [[${ action }]];
-      var back = "<a href=\"/test1/rsearch?keyword=" + keyword + "&action=" + action + " \">検索結果に戻る</a>";
-      document.getElementById("back").innerHTML = back;
-    </script>
-  </div>
-  <div th:if="${action == null}">
-    <a href="/test1/rchat">チャット画面に戻る</a>
+    <a href="/chat/rchat" id="bottom">チャット画面に戻る</a>
   </div>
 
 </body>

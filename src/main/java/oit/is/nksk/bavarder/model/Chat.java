@@ -3,6 +3,7 @@ package oit.is.nksk.bavarder.model;
 public class Chat {
   int id;
   String user;
+  String username;
   String message;
   String time;
   int iine;
@@ -17,6 +18,14 @@ public class Chat {
 
   public String getUser() {
     return user;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getUsername() {
+    return username;
   }
 
   public void setUser(String user) {

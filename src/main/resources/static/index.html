@@ -5,32 +5,40 @@
   <meta charset="utf-8">
   <title>Bavarder</title>
   <style type="text/css">
-    <!--
     body {
       color: white;
       background-color: skyblue;
+    }
+
+    #bg {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
       text-align: center;
     }
 
     h1 {
-      font-size: 100px;
+      font-size: 10vw;
     }
 
     button {
       color: black;
       background-color: white;
-      width: 200px;
-      height: 80px;
-      font-size: 30px;
+      width: 20vw;
+      height: 5vw;
+      font-size: 2vw;
     }
-    -->
   </style>
 </head>
 
 <body>
-  <h1>Bavarder</h1>
-  <button type="button" onclick="document.location='/test1/chat';">ログイン</button>
-  <button type="button" onclick="document.location='/test2/signup';">新規登録</button>
+  <div id="bg">
+    <h1>Bavarder</h1>
+    <button type="button" onclick="document.location='/chat/chat';">ログイン</button>
+    <button type="button" onclick="document.location='/register/signup';">新規登録</button>
+  </div>
 </body>
 
 </html>

@@ -3,6 +3,56 @@
 <head>
   <meta charset="utf-8">
   <title>Bavarder</title>
+  <style type="text/css">
+    body {
+      color: white;
+      background-color: skyblue;
+    }
+
+    #chat_list {
+      position: absolute;
+      top: 3%;
+      bottom: 3%;
+      left: 3%;
+      right: 30%;
+      margin: auto;
+      color: black;
+      border: solid lightskyblue 10px;
+      border-radius: 50px;
+      background-color: white;
+      overflow-x: auto;
+      padding-left: 10px;
+    }
+
+    #edit_bg {
+      position: absolute;
+      top: 25%;
+      bottom: 25%;
+      left: 73%;
+      right: 3%;
+      margin: auto;
+      background-color: white;
+      border: solid lightskyblue 10px;
+      border-radius: 50px;
+      text-align: center;
+    }
+
+    #edit_form {
+      position: absolute;
+      top: 30%;
+      bottom: 0%;
+      left: 0%;
+      right: 0%;
+      margin: auto;
+      color: #000000;
+    }
+
+    #bottom {
+      position: absolute;
+      bottom: 0%;
+      left: 4%;
+    }
+  </style>
 </head>
 
 <body>
@@ -15,28 +65,32 @@
     var action = [[${ action }]];
     if (action == "ユーザ検索") {
       for (var i = 0; i < result.length; i++) {
-        contents = "<a href = \"/test1/showprofile?id=" + result[i].userid + "&keyword=" + keyword + "&action=" + action + "\">" + result[i].userid + "</a><br><br>" + contents;
+        contents = "<a href = \"/chat/showprofile?id=" + result[i].userid + "&keyword=" + keyword + "&action=" + action + "\">" + result[i].userid + "</a><br><br>" + contents;
       }
     } else {
       for (var i = 0; i < result.length; i++) {
         contents = "<br><br>" + contents;
         if (result[i].user == myname) {
-          contents = "<a href=\"/test1/resultform?id=" + result[i].id + "&keyword=" + keyword + "&action=" + action + "\">編集</a> " + "<a href=\"/test1/resultdelete?id=" + result[i].id + "&keyword=" + keyword + "&action=" + action + "\">削除</a>" + contents;
+          contents = "<a href=\"/chat/resultform?id=" + result[i].id + "&keyword=" + keyword + "&action=" + action + "\">編集</a> " + "<a href=\"/chat/resultdelete?id=" + result[i].id + "&keyword=" + keyword + "&action=" + action + "\">削除</a>" + contents;
         }
-        contents = result[i].user + "<br>" + result[i].message + "<br>" + result[i].time + "<a href=\"/test1/resultiine?id=" + result[i].id + "&keyword=" + keyword + "&action=" + action + "\">★</a>" + result[i].iine + contents;
+        contents = result[i].user + "<br>" + result[i].message + "<br>" + result[i].time + "<a href=\"/chat/resultiine?id=" + result[i].id + "&keyword=" + keyword + "&action=" + action + "\">★</a>" + result[i].iine + contents;
       }
     }
-    document.getElementById("chat_list").innerHTML = contents;
+    document.getElementById("chat_list").innerHTML = "<br>検索結果<br><br>" + contents;
   </script>
 
   <div th:if="${chat}">
-    <form th:action="@{/test1/resultedit(id=${chat.id}, keyword=${keyword}, action=${action})}" method="post">
-      <input type="text" name="message" th:value="${chat.message}" /><br>
-      <input type="submit" value="編集"><input type="reset" value="リセット">
+    <form th:action="@{/chat/resultedit(id=${chat.id}, keyword=${keyword}, action=${action})}" method="post"
+      id="edit_bg">
+      <div id="edit_form">
+        <h2>編集</h2>
+        <input type="text" name="message" th:value="${chat.message}" maxlength="100" /><br>
+        <input type="submit" value="編集"><input type="reset" value="リセット">
+      </div>
     </form>
   </div>
 
-  <a href="/test1/rchat">チャット画面に戻る</a>
+  <a href="/chat/rchat" id="bottom">チャット画面に戻る</a>
 </body>
 
 </html>

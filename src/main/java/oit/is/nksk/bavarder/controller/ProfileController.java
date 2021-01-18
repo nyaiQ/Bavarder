@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import oit.is.nksk.bavarder.model.Account;
 import oit.is.nksk.bavarder.model.AccountMapper;
+import oit.is.nksk.bavarder.model.ChatMapper;
 import oit.is.nksk.bavarder.service.ProfileService;
 
 @Controller
-@RequestMapping("/test3")
+@RequestMapping("/profile")
 public class ProfileController {
 
   private final Logger logger = LoggerFactory.getLogger(ProfileController.class);
@@ -28,6 +29,9 @@ public class ProfileController {
   @Autowired
   AccountMapper aMapper;
 
+  @Autowired
+  ChatMapper cMapper;
+
   @GetMapping("/moveprof")
   public String moveProf(@RequestParam String id, ModelMap model) {
     Account prof = aMapper.viewProfile(id);
@@ -35,6 +39,7 @@ public class ProfileController {
     String birth = prof.getBirth();
     String gender = prof.getGender();
     String comment = prof.getComment();
+    model.addAttribute("userid", prof.getUserId());
     model.addAttribute("n", name);
     model.addAttribute("b", birth);
     model.addAttribute("g", gender);
@@ -46,10 +51,12 @@ public class ProfileController {
   public String profedit(@RequestParam String name, @RequestParam String birth, @RequestParam String gender,
       @RequestParam String comment, Principal prin, ModelMap model) {
     pservice.editProf(prin.getName(), name, birth, gender, comment);
+    model.addAttribute("userid", prin.getName());
     model.addAttribute("n", name);
     model.addAttribute("b", birth);
     model.addAttribute("g", gender);
     model.addAttribute("c", comment);
+    cMapper.updateusername(prin.getName(), name);
     return "profile.html";
   }
 
