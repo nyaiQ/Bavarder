@@ -52,6 +52,20 @@
       bottom: 0%;
       left: 4%;
     }
+
+    #btn_iine {
+      color: gold;
+      text-decoration: none;
+    }
+
+    #btn_iine:hover {
+      color: yellow;
+    }
+
+    #userid {
+      display: inline;
+      color: silver;
+    }
   </style>
 </head>
 
@@ -73,7 +87,7 @@
         if (result[i].user == myname) {
           contents = "<a href=\"/chat/resultform?id=" + result[i].id + "&keyword=" + keyword + "&action=" + action + "\">編集</a> " + "<a href=\"/chat/resultdelete?id=" + result[i].id + "&keyword=" + keyword + "&action=" + action + "\">削除</a>" + contents;
         }
-        contents = result[i].user + "<br>" + result[i].message + "<br>" + result[i].time + "<a href=\"/chat/resultiine?id=" + result[i].id + "&keyword=" + keyword + "&action=" + action + "\">★</a>" + result[i].iine + contents;
+        contents = result[i].username + "(<div id=\"userid\">" + result[i].user + "</div>)<br>" + result[i].message + "<br>" + result[i].time + "<a href=\"/chat/resultiine?id=" + result[i].id + "&keyword=" + keyword + "&action=" + action + "\" id=\"btn_iine\">★</a>" + result[i].iine + contents;
       }
     }
     document.getElementById("chat_list").innerHTML = "<br>検索結果<br><br>" + contents;

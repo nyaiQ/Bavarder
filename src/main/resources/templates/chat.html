@@ -71,9 +71,18 @@
       color: #000000;
     }
 
-    button {
-      color: black;
-      background-color: white;
+    #btn_iine {
+      color: gold;
+      text-decoration: none;
+    }
+
+    #btn_iine:hover {
+      color: yellow;
+    }
+
+    #userid {
+      display: inline;
+      color: silver;
     }
   </style>
   <script th:inline="javascript">
@@ -90,7 +99,7 @@
           if (chat_list[i].user == myname) {
             contents = "<a href=\"/chat/eform?id=" + chat_list[i].id + "\">編集</a> " + "<a href=\"/chat/delete?id=" + chat_list[i].id + "\">削除</a>" + contents;
           }
-          contents = chat_list[i].username + "<br>" + chat_list[i].message + "<br>" + chat_list[i].time + "<a href=\"/chat/iine?id=" + chat_list[i].id + "\">★</a>" + chat_list[i].iine + contents;
+          contents = chat_list[i].username + "(<div id=\"userid\">" + chat_list[i].user + "</div>)<br>" + chat_list[i].message + "<br>" + chat_list[i].time + "<a href=\"/chat/iine?id=" + chat_list[i].id + "\" id=\"btn_iine\">★</a>" + chat_list[i].iine + contents;
         }
         console.log(contents);
         document.getElementById("chat_list").innerHTML = "<br>" + contents;
